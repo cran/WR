@@ -295,9 +295,8 @@ IF.fun <- function(beta,H,t,rho,dataf,tau,survZ){
 #' as a function of \code{t}.
 #' @seealso \code{\link{pwreg}}
 #' @export
-#' @references Mao, L. and Wang, T. (2019+). "A class of proportional win-fractions
-#' regression models for composite outcomes". Journal of the American Statistical
-#' Association, under review.
+#' @references Mao, L. and Wang, T. (2020+). "A class of proportional win-fractions
+#' regression models for composite outcomes". Under review.
 #' @examples
 #' library(WR)
 #' head(non_ischemic)
@@ -376,9 +375,8 @@ score.proc <- function(obj,t=NULL){
 #' @import survival
 #' @importFrom utils combn
 #' @importFrom stats pchisq pnorm printCoefmat qnorm
-#' @references Mao, L. and Wang, T. (2019+). "A class of proportional win-fractions
-#' regression models for composite outcomes". Journal of the American Statistical
-#' Association, under review.
+#' @references Mao, L. and Wang, T. (2020+). "A class of proportional win-fractions
+#' regression models for composite outcomes". Under review.
 #' @examples
 #' library(WR)
 #' head(non_ischemic)

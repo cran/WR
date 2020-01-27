@@ -22,7 +22,7 @@ This is a self-contained, practical tutorial on the use of the `WR` package to f
 proportional win-fractions (PW) regression model for a composite endpoint consisting
 of death and non-fatal events. The model is a regression version of Pocock's
 two-sample win ratio (Pocock et al., 2012). The methodology is described in full
-detail and generality in Mao and Wang (2019+).
+detail and generality in Mao and Wang (2020+).
 
 ## A summary of the PW regression methodology
 Let $D$ denote the survival time, $T$ denote time to (the first) hospitalization,
@@ -185,8 +185,7 @@ Most curves are fairly patternless with suprema well bounded by 2. So we conclud
 proportionality assumption approximately holds.
 
 ## References
-Mao, L. and Wang, T. (2019+). "A class of proportional win-fractions regression models for composite outcomes".
-Journal of the Amedican Statistical Association, Under Review.
+Mao, L. and Wang, T. (2020+). "A class of proportional win-fractions regression models for composite outcomes". Under Review.
 
 O'Connor, C. M., Whellan, D. J., Lee, K. L., Keteyian, S. J., Cooper, L. S., Ellis, S. J.,
 Leifer, E. S., Kraus, W. E., Kitzman, D. W., Blumenthal, J. A. et al. (2009). "Efficacy and

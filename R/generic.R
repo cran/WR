@@ -21,7 +21,7 @@ print.pwreg=function(x,...){
   se=sqrt(diag(var))
   pv=2*(1-pnorm(abs(beta/se)))
   cat("Proportional win-fractions regression models for priority-adjusted composite endpoint\n
-    (Mao and Wang, 2019+, JASA, under review):\n\n")
+    (Mao and Wang, 2020+, under review):\n\n")
   tn=n*(n-1)/2
   cat("Total number of pairs:", tn,"\n")
   cat("Wins-losses on death: ",paste(sum(comp==1)," (",round(100*sum(comp==1)/tn,1),"%)",sep=""),"\n")

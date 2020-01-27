@@ -44,9 +44,8 @@ plot(score.obj, k = 1)
 
 }
 \references{
-Mao, L. and Wang, T. (2019+). "A class of proportional win-fractions
-regression models for composite outcomes". Journal of the American Statistical
-Association, under review.
+Mao, L. and Wang, T. (2020+). "A class of proportional win-fractions
+regression models for composite outcomes". Under review.
 }
 \seealso{
 \code{\link{pwreg}}
