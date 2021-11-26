@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{score.proc}
 \alias{score.proc}
-\title{Computes the standarized score processes}
+\title{Computes the standardized score processes}
 \usage{
 score.proc(obj, t = NULL)
 }
@@ -28,8 +28,8 @@ head(non_ischemic)
 id_unique <-unique(non_ischemic$ID)
 set.seed(2019)
 id_sample <- sample(id_unique, 200)
-
 non_ischemic_reduce <- non_ischemic[non_ischemic$ID \%in\% id_sample, ]
+
 # Use the reduced non_ischemic data for analysis
 nr <- nrow(non_ischemic_reduce)
 p <- ncol(non_ischemic_reduce)-3
@@ -41,12 +41,12 @@ pwreg.obj <- pwreg(time=time,status=status,Z=Z,ID=ID)
 score.obj <- score.proc(pwreg.obj)
 #plot the standardized score process for the first covariate
 plot(score.obj, k = 1)
-
 }
 \references{
-Mao, L. and Wang, T. (2020+). "A class of proportional win-fractions
-regression models for composite outcomes". Under review.
+Mao, L. and Wang, T. (2020). A class of proportional win-fractions
+regression models for composite outcomes. Biometrics, 10.1111/biom.13382
 }
 \seealso{
-\code{\link{pwreg}}
+\code{\link{pwreg}}, \code{\link{print.pwreg}}
 }
+\keyword{pwreg}

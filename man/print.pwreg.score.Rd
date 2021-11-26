@@ -9,10 +9,10 @@
 \arguments{
 \item{x}{A object of class pwreg.score.}
 
-\item{...}{further arguments passed to or from other methods}
+\item{...}{further arguments passed to or from other methods.}
 }
 \value{
-print the results of \code{pwreg.score} object
+Print the results of \code{pwreg.score} object.
 }
 \description{
 Print information on the content of the pwreg.score object
@@ -23,3 +23,4 @@ Print information on the content of the pwreg.score object
 \seealso{
 \code{\link{score.proc}}
 }
+\keyword{pwreg}

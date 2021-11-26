@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Lu Mao (lmao@biostat.wisc.edu)" />
+
+
+<title>Two-sample win ratio tests of possibly recurrent event and death</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Two-sample win ratio tests of possibly recurrent event and death</h1>
+<h4 class="author">Lu Mao (<a href="mailto:lmao@biostat.wisc.edu" class="email">lmao@biostat.wisc.edu</a>)</h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>INTRODUCTION</h2>
+<p>This vignette demonstrates the use of the <code>WR</code> package for two-sample win ratio tests of recurrent event and death (Mao et al., 2022).</p>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<p>Let <span class="math inline">\(D\)</span> denote the survival time and write <span class="math inline">\(N_D(t)=I(D\leq t)\)</span>. Likewise, let <span class="math inline">\(T_1&lt;T_2&lt;\cdots\)</span> denote the recurrent event times and write <span class="math inline">\(N_H(t)=\sum_{k=1}^\infty I(T_k\leq t)\)</span>. In other words, <span class="math inline">\(N_H(t)\)</span> is the counting process for the recurrent event. Since death is a terminal event, we must have that <span class="math inline">\(N_H(t)=N_H(t\wedge D)\)</span>, where <span class="math inline">\(b\wedge c=\min(b,c)\)</span>. Let <span class="math inline">\(\boldsymbol Y(t)=\{N_D(u), N_H(u):0\leq u\leq t\}\)</span> denote the event history up to time <span class="math inline">\(t\)</span>. The full outcome data without censoring are thus <span class="math inline">\(\boldsymbol Y:=\boldsymbol Y(\tau)\)</span>, where <span class="math inline">\(\tau\)</span> is the maximum length of follow-up.</p>
+</div>
+<div id="general-framework-for-hypotheses-and-tests" class="section level3">
+<h3>General framework for hypotheses and tests</h3>
+<p>Use <span class="math inline">\(a=1\)</span> to denote the active treatment and <span class="math inline">\(a=0\)</span> to denote the control. For all notation introduced above, use the subscript <span class="math inline">\((a)\)</span> to denote the corresponding group-specific quantity. For example, <span class="math inline">\(\boldsymbol Y^{(a)}\)</span> represents the outcome data from group <span class="math inline">\(a\)</span> <span class="math inline">\((a=1, 0)\)</span>. Consider a time-dependent win function of the form <span class="math display">\[\mathcal W(\boldsymbol Y^{(a)}, \boldsymbol Y^{(1-a)})(t) 
+= I(\mbox{patient in group $a$ wins against that in group $1-a$ by
+time $t$}).\]</span> The specific definition of <span class="math inline">\(\mathcal W\)</span> will be discussed later.</p>
+<p>Given such a rule of cross-group comparison, the win and loss probabilities for the treatment against control by time <span class="math inline">\(t\)</span> are <span class="math inline">\(w(t)=E\{\mathcal W(\boldsymbol Y^{(1)}, \boldsymbol Y^{(0)})(t)\}\)</span> and <span class="math inline">\(l(t)=E\{\mathcal W(\boldsymbol Y^{(0)}, \boldsymbol Y^{(0)})(t)\}\)</span>, respectively. Suppose that we wish to test the null hypothesis that the win and loss probabilities are equal, i.e., <span class="math display">\[H_0: w(t)=l(t)\hspace{2ex}\mbox{for all }t\in[0, \tau],\]</span> against the alternative hypothesis that the win probability dominates the loss probability, i.e., <span class="math display">\[\begin{equation}\tag{1}
+H_A: w(t)\geq l(t)\hspace{1ex}\mbox{for all }t\in[0, \tau] 
+\mbox{ with strict inequality for some }t.
+\end{equation}\]</span> With censored data, a general way to test such hypotheses is to use a log-transformed two-sample win ratio constructed similarly to Pocock et al. (2012), only with the pairwise rule of comparison replaced by the customized <span class="math inline">\(\mathcal W(\cdot,\cdot)(t)\)</span>, where <span class="math inline">\(t\)</span> is set as the earlier of the two observed follow-up times. A stratified test can also be developed along the lines of Dong et al. (2018).</p>
+</div>
+<div id="choice-of-win-function" class="section level3">
+<h3>Choice of win function</h3>
+<p>Different choices of <span class="math inline">\(\mathcal W\)</span> will lead to different hypotheses and tests. The standard win ratio (SWR) of Pocock et al. (2012) corresponds to the choice of <span class="math display">\[\mathcal W_S(\boldsymbol Y^{(a)}, \boldsymbol Y^{(1-a)})(t)
+=I(D^{(1-a)}&lt;D^{(a)}\wedge t)+I(D^{(a)}\wedge D^{(1-a)}&gt;t, T_1^{(1-a)}&lt;T_1^{(a)}\wedge t).\]</span> With recurrent nonfatal event, <span class="math inline">\(\mathcal W_S\)</span> fails to fully exploit the data as it draws only on the first occurrence. A more efficient rule is given by the last-event-assisted win ratio (LWR), which compares on the nonfatal event first by its cumulative frequency, with ties broken by the time of its last episode. In other words, <span class="math display">\[\begin{align}
+\mathcal W_L(\boldsymbol Y^{(a)}, \boldsymbol Y^{(1-a)})(t)
+&amp;=I(D^{(1-a)}&lt;D^{(a)}\wedge t)+I\{D^{(a)}\wedge D^{(1-a)}&gt;t, N_H^{(a)}(t)&lt;N_H^{(1-a)}(t)\}\\
+&amp;\hspace{1ex}+I\{D^{(a)}\wedge D^{(1-a)}&gt;t, N_H^{(a)}(t)=N_H^{(1-a)}(t)=\mbox{ some } k,
+T_k^{(1-a)}&lt;T_k^{(a)}\}.
+\end{align}\]</span> Likewise we can construct a first-event-assisted win ratio (FWR) by replacing the <span class="math inline">\(T_k^{(a)}\)</span> with the <span class="math inline">\(T_1^{(a)}\)</span>, or a naive win ratio (NWR) by removing the tie-breaking third term altogether (see Mao et al. (2022) for details). Nonetheless, it is recommended that the LWR be used as the default, as it makes fuller use of the data and reduces to the SWR when the nonfatal event occurs at most once.</p>
+<p>Under the LWR, a simple condition that implies the dominance of win probability in (1) is a joint stochastic order of the event times between the two groups: <span class="math display">\[\begin{equation}\tag{2}
+{P}(D^{(1)}&gt;s, T^{(1)}_{1}&gt;t_1, T^{(1)}_{2}&gt;t_2, \ldots)&gt;
+{P}(D^{(0)}&gt;s, T^{(0)}_{1}&gt;t_1, T^{(0)}_{2}&gt;t_2, \ldots),
+\end{equation}\]</span> for all <span class="math inline">\(0\leq t_1\leq t_2\leq\cdots\leq s\leq\tau\)</span>. Expression (2) means that the treatment stochastically delays all events, fatal and nonfatal, jointly as compared to the control. Hence, when (2) is true, the LWR test rejects <span class="math inline">\(H_0\)</span> with probability tending to 1 as the sample size increases to infinity.</p>
+</div>
+</div>
+<div id="basic-syntax" class="section level2">
+<h2>BASIC SYNTAX</h2>
+<p>The basic function to perform the win ratio tests is <code>WRrec()</code>. To use the function, the input data must be in the “long” format. Specifically, we need an <code>ID</code> variable containing the unique patient identifiers, a <code>time</code> variable containing the event times, a <code>status</code> variable labeling the event type (<code>status=2</code> for recurrent non-fatal event, <code>=1</code> for death, and <code>=0</code> for censoring), and, finally, a binary <code>trt</code> variable with 1 indicating the treatment and 0 indicating the control. To perform an unstratified LWR test, use</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>obj<span class="ot">&lt;-</span><span class="fu">WRrec</span>(ID,time,status,trt)</span></code></pre></div>
+<p>For a stratified test, supply a vector of stratifying (categorical) variable through an additional <code>strata=</code> argument. To get test results from FWR and NWR as well, add the option <code>naive=TRUE</code>. Printing the object <code>obj</code> gives us the <span class="math inline">\(p\)</span>-values of the tests as well as some descriptive statistics.</p>
+</div>
+<div id="an-example-with-the-hf-action-trial" class="section level2">
+<h2>AN EXAMPLE WITH THE HF-ACTION TRIAL</h2>
+<div id="data-description" class="section level3">
+<h3>Data description</h3>
+<p>To illustrate the win ratio tests, consider the Heart Failure: A Controlled Trial Investigating Outcomes of Exercise Training (HF-ACTION) trial. A randomized controlled trial, HF-ACTION was conducted on a cohort of over two thousand heart failure patients recruited between 2003–2007 across the USA, Canada, and France (O’Connor et al., 2009). The study aimed to assess the effect of adding aerobic exercise training to usual care on the patient’s composite endpoint of all-cause death and all-cause hospitalization. The primary analysis of the whole study population showed a moderate and non-significant reduction in the risk of time to the first composite event (hazard ratio 0.93; <span class="math inline">\(p\)</span>-value 0.13). Here we focus on a subgroup of non-ischemic patients with reduced cardio-pulmonary exercise (CPX) test duration (i.e., <span class="math inline">\(\leq 9\)</span> minutes before reporting of discomfort). There are scientific and empirical evidence suggesting that this particular sub-population may benefit more from exercise training interventions than does the average heart failure patient.</p>
+<p>The associated dataset <code>hfaction_cpx9</code> is contained in the <code>WR</code> package and can be loaded by</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(WR)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hfaction_cpx9)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        patid       time status trt_ab age60</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 HFACT00001  7.2459016      2      0     1</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 HFACT00001 12.5573770      0      0     1</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 HFACT00002  0.7540984      2      0     1</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 HFACT00002  4.2950820      2      0     1</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 HFACT00002  4.7540984      2      0     1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 HFACT00002 45.9016393      0      0     1</span></span></code></pre></div>
+<p>The dataset is already in a format suitable for <code>WRrec()</code> (<code>status</code>= 2 for hospitalization and = 1 for death). The <code>time</code> variable is in units of months and <code>trt=0</code> for usual care (control) and <code>1</code> for exercise training. The <code>age60</code> variable is an indicator of patient age being greater than or equal to 60 years and can potentially serve as a stratifying variable.</p>
+</div>
+<div id="win-ratio-tests-on-recurrent-event-and-death" class="section level3">
+<h3>Win ratio tests on recurrent event and death</h3>
+<p>To perform the win ratio tests between exercise training and usual care stratified by age, use the code</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## simplify the dataset name</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dat<span class="ot">&lt;-</span>hfaction_cpx9</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## comparing exercise training to usual care by LWR, FWR, and NWR</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>obj<span class="ot">&lt;-</span><span class="fu">WRrec</span>(<span class="at">ID=</span>dat<span class="sc">$</span>patid,<span class="at">time=</span>dat<span class="sc">$</span>time,<span class="at">status=</span>dat<span class="sc">$</span>status,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">trt=</span>dat<span class="sc">$</span>trt_ab,<span class="at">strata=</span>dat<span class="sc">$</span>age60,<span class="at">naive=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## print the results</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>obj</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WRrec(ID = dat$patid, time = dat$time, status = dat$status, trt = dat$trt_ab, </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     strata = dat$age60, naive = TRUE)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             N Rec. Event Death Med. Follow-up</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Control   221        571    57       28.62295</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Treatment 205        451    36       27.57377</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of last-event-assisted WR (LWR; recommended), first-event-assisted WR (FWR), and naive WR (NWR):</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Win prob Loss prob WR (95% CI)*      p-value</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; LWR 50.4%    38.2%     1.32 (1.05, 1.66) 0.0189 </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; FWR 50.4%    38.3%     1.32 (1.04, 1.66) 0.0202 </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; NWR 47%      35%       1.34 (1.05, 1.72) 0.0193 </span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -----</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; *Note: The scale of WR should be interpreted with caution as it depends on </span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; censoring distribution without modeling assumptions.</span></span></code></pre></div>
+<p>We can see from the output above that 57 (25.8%) out of 221 patients died in usual care, with an average of <span class="math inline">\(571/221=2.6\)</span> hospitalizations per patient; and that 36 (17.6%) out of 205 patients died in exercise training with an average of <span class="math inline">\(451/205=2.2\)</span> hospitalizations per patient. Clearly, those undergoing exercise training are doing much better in terms of both overall survival and recurrent hospitalization.</p>
+<p>Following the descriptive statistics are the analysis results by the LWR, FWR, and NWR. Although estimates of overall win and loss probabilities, as well as the win ratio, are provided, their magnitudes are generally dependent on the censoring distribution and should thus be interpreted with caution. On the other hand, the <span class="math inline">\(p\)</span>-values are from valid tests of the null and alternative hypotheses discussed in the earlier section. We can see that all three tests yield <span class="math inline">\(p\)</span>-values less than the conventional threshold 0.05, suggesting that exercise training significantly reduces mortality and recurrent hospitalization.</p>
+</div>
+<div id="comparison-with-standard-win-ratio" class="section level3">
+<h3>Comparison with standard win ratio</h3>
+<p>To compare with the SWR, we first create a dataset where only the first hospitalization is retained.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">######################################</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Remove recurrent hospitalization ##</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">######################################</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## sort dataset by patid and time</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>o<span class="ot">&lt;-</span><span class="fu">order</span>(dat<span class="sc">$</span>patid,dat<span class="sc">$</span>time)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>dat<span class="ot">&lt;-</span>dat[o,]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## retain only the first hospitalization</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>datHF<span class="ot">&lt;-</span>dat[<span class="sc">!</span><span class="fu">duplicated</span>(dat[<span class="fu">c</span>(<span class="st">&quot;patid&quot;</span>,<span class="st">&quot;status&quot;</span>)]),]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datHF)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         patid       time status trt_ab age60</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  HFACT00001  7.2459016      2      0     1</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  HFACT00001 12.5573770      0      0     1</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  HFACT00002  0.7540984      2      0     1</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  HFACT00002 45.9016393      0      0     1</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  HFACT00007  3.4754098      2      1     1</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 HFACT00007 34.8852459      1      1     1</span></span></code></pre></div>
+<p>Then we perform the SWR test by applying the same procedure for the LWR to the reduced dataset (which in this case is equivalent to the SWR).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Perform the standard win ratio test</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>objSWR<span class="ot">&lt;-</span><span class="fu">WRrec</span>(<span class="at">ID=</span>datHF<span class="sc">$</span>patid,<span class="at">time=</span>datHF<span class="sc">$</span>time,<span class="at">status=</span>datHF<span class="sc">$</span>status,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">trt=</span>datHF<span class="sc">$</span>trt_ab,<span class="at">strata=</span>datHF<span class="sc">$</span>age60)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## print the results</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>objSWR</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WRrec(ID = datHF$patid, time = datHF$time, status = datHF$status, </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     trt = datHF$trt_ab, strata = datHF$age60)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             N Rec. Event Death Med. Follow-up</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Control   221        170    57       28.62295</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Treatment 205        145    36       27.57377</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of last-event-assisted WR (LWR):</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Win prob Loss prob WR (95% CI)*  p-value</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; LWR 49.5%    39.1%     1.27 (1, 1.6) 0.0494 </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -----</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; *Note: The scale of WR should be interpreted with caution as it depends on </span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; censoring distribution without modeling assumptions.</span></span></code></pre></div>
+<p>We can see that the test result is only borderline significant, possibly due to less efficient use of the recurrent-event data.</p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ul>
+<li><p>Dong, G., Qiu, J., Wang, D., &amp; Vandemeulebroecke, M. (2018). The stratified win ratio. <em>Journal of Biopharmaceutical Statistics</em>, 28, 778–796.</p></li>
+<li><p>Mao, L., Kim, K., &amp; Li, Y. (2022). On recurrent-event win ratio. <em>Statistical Methods in Medical Research</em>, under review.</p></li>
+<li><p>O’Connor, C. M., Whellan, D. J., Lee, K. L., Keteyian, S. J., Cooper, L. S., Ellis, S. J., Leifer, E. S., Kraus, W. E., Kitzman, D. W., Blumenthal, J. A. et al. (2009). “Efficacy and safety of exercise training in patients with chronic heart failure: HF-ACTION randomized controlled trial”. <em>Journal of the American Medical Association</em>, 301, 1439–1450.</p></li>
+<li><p>Pocock, S., Ariti, C., Collier, T., and Wang, D. (2012). The win ratio: a new approach to the analysis of composite endpoints in clinical trials based on clinical priorities. <em>European Heart Journal</em>, 33, 176–182.</p></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

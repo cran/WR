@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Lu Mao (lmao@biostat.wisc.edu) &amp; Tuo Wang" />
+
+
+<title>Proportional win-fractions (PW) regression of composite endpoints of death and nonfatal event</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Proportional win-fractions (PW) regression of composite endpoints of death and nonfatal event</h1>
+<h4 class="author">Lu Mao (<a href="mailto:lmao@biostat.wisc.edu" class="email">lmao@biostat.wisc.edu</a>) &amp; Tuo Wang</h4>
+
+
+
+<p>This vignette demonstrates the use of the <code>WR</code> package in fitting the proportional win-fractions (PW) regression model for prioritized composite endpoints consisting of death and a nonfatal event (Mao and Wang, 2020, <em>Biometrics</em>). The PW model can be viewed as the regression version of the two-sample win ratio proposed by Pocock et al. (2012).</p>
+<div id="model-specification" class="section level2">
+<h2>MODEL SPECIFICATION</h2>
+<p>Let <span class="math inline">\(D\)</span> denote the survival time, <span class="math inline">\(T\)</span> time to the first nonfatal event like hospitalization, and <span class="math inline">\(\boldsymbol Z\)</span> a <span class="math inline">\(p\)</span>-vector of covariates. The composite outcome is <span class="math inline">\(\boldsymbol Y=(D, T)\)</span> with <span class="math inline">\(D\)</span> prioritized over <span class="math inline">\(T\)</span>. If the <span class="math inline">\(i\)</span>th and <span class="math inline">\(j\)</span>th patients are both followed up to time <span class="math inline">\(t\)</span>, define <span class="math display">\[\mathcal W(\boldsymbol Y_i, \boldsymbol Y_j)(t) = I(\mbox{subject $i$ wins against subject $j$ by $t$}) = I(D_j &lt; D_i \wedge t) + I(D_i \wedge D_j &gt; t, T_j &lt; T_i \wedge t),\]</span> where <span class="math inline">\(a\wedge b=\min(a,b)\)</span>. This ‘’win indicator’’ uses the sequential comparison rule of Pocock et al. (2012).</p>
+<p>Then, the covariate-specific win ratio at <span class="math inline">\(t\)</span> is <span class="math display">\[WR(t;\boldsymbol Z_i, \boldsymbol Z_j):=\frac{E\{\mathcal W(\boldsymbol Y_i, \boldsymbol Y_j)(t)\mid \boldsymbol Z_i, \boldsymbol Z_j\}}{E\{\mathcal W(\boldsymbol Y_j, \boldsymbol Y_i)(t)\mid \boldsymbol Z_i, \boldsymbol Z_j\}}.\]</span> For example, if subject <span class="math inline">\(i\)</span> is from the treatment arm with <span class="math inline">\(\boldsymbol Z_i=1\)</span> and subject <span class="math inline">\(j\)</span> is from the treatment arm with <span class="math inline">\(\boldsymbol Z_j=0\)</span>, then <span class="math inline">\(WR(t;\boldsymbol Z_i, \boldsymbol Z_j)\)</span> is precisely the estimand of Pocock’s win ratio comparing the treatment to the control when all subjects in both arms are followed to time <span class="math inline">\(t\)</span>.</p>
+<p>The PW model specifies that <span class="math display">\[\mbox{PW Model: }\hspace{3mm} WR(t;\boldsymbol Z_i, \boldsymbol Z_j)=\exp\{\boldsymbol\beta^{\rm T}(\boldsymbol Z_i -\boldsymbol Z_j)\}.\]</span> Clearly, the PW model assumes that win ratio is invariant to the follow-up time (proportionality assumption). Under the model, the components of <span class="math inline">\(\boldsymbol\beta\)</span> can be interpreted as the log win ratios associated with unit increases in the corresponding covariates. Under the PW model, we can obtain consistent estimates for the parameter <span class="math inline">\(\boldsymbol\beta\)</span> based on censored data regardless of distribution of the censoring time <span class="math inline">\(C\)</span> as long as <span class="math display">\[(C\perp \boldsymbol Y)\mid \boldsymbol Z.\]</span></p>
+</div>
+<div id="basic-syntax" class="section level2">
+<h2>BASIC SYNTAX</h2>
+<p>The input data must be in the “long format”, with an <code>ID</code> vector containing unique patient-level identifiers. In addition, we need a <code>time</code> vector containing the event times and a <code>status</code> vector indicating the corresponding cause of the event. The vector <code>status</code> should be coded as <code>1</code>=death; <code>2</code>=non-fatal event; <code>0</code>=censoring. In the case of recurrent non-fatal event, multiple rows with <code>status</code>=2 are allowed. However, by nature of the method, only time to the first episode will be used. Finally, we need a covariate matrix <code>Z</code> with the same row as <code>ID</code>. Each column of <code>Z</code> represents a covariate. All covariates need to be time-constant.</p>
+<p>The main function to fit the PW model is <code>pwreg(time,status, Z, ID)</code>. The function returns an object of class <code>pwreg</code> with a <code>beta</code> vector for <span class="math inline">\(\widehat{\boldsymbol\beta}\)</span> and a <code>Var</code> matrix for <span class="math inline">\(\text{var}(\widehat{\boldsymbol\beta})\)</span>. For details, refer to documentation of the <code>WR</code> package.</p>
+</div>
+<div id="an-example-with-the-hf-action-trial" class="section level2">
+<h2>AN EXAMPLE WITH THE HF-ACTION TRIAL</h2>
+<p>We consider a dataset from the HF-ACTION study consisting of 451 non-ischemic heart failure patients. The study was conducted between April 2003 through Feb 2007 at 82 sites in the USA, Canada, and France (O’Connor et al., 2009). The study objective was to assess the effect of adding aerobic exercise training to usual care on the patient’s CV outcomes. The primary endpoint was a composite of all-cause death and all-cause hospitalization.</p>
+<p>We first load the <code>WR</code> package and the analysis dataset <code>non_ischemic</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(WR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(non_ischemic)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ID time status trt_ab age sex Black.vs.White Other.vs.White   bmi bipllvef</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1  221      2      0  62   1              0              0 25.18    32.24</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1  383      0      0  62   1              0              0 25.18    32.24</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  2   23      2      0  75   1              1              0 22.96    21.71</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  2 1400      0      0  75   1              1              0 22.96    21.71</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  5    7      2      0  48   1              1              0 34.37    22.97</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  5   10      1      0  48   1              1              0 34.37    22.97</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   hyperten COPD diabetes acei betab smokecurr</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        0    0        0    0     1         1</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        0    0        0    0     1         1</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        1    0        0    0     1         0</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        1    0        0    0     1         0</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        1    0        0    0     1         0</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6        1    0        0    0     1         0</span></span></code></pre></div>
+<p>We re-label the covariates with informative names.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(non_ischemic)[<span class="dv">4</span><span class="sc">:</span><span class="dv">16</span>]<span class="ot">=</span><span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Training vs Usual&quot;</span>,<span class="st">&quot;Age (year)&quot;</span>,<span class="st">&quot;Male vs Female&quot;</span>,<span class="st">&quot;Black vs White&quot;</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Other vs White&quot;</span>, <span class="st">&quot;BMI&quot;</span>,<span class="st">&quot;LVEF&quot;</span>,<span class="st">&quot;Hypertension&quot;</span>,<span class="st">&quot;COPD&quot;</span>,<span class="st">&quot;Diabetes&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;ACE Inhibitor&quot;</span>,<span class="st">&quot;Beta Blocker&quot;</span>, <span class="st">&quot;Smoker&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Compute the sample size the median length of follow-up.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sample size</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(non_ischemic<span class="sc">$</span>ID))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 451</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># median length of follow-up time</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(non_ischemic<span class="sc">$</span>time[non_ischemic<span class="sc">$</span>status<span class="sc">&lt;</span><span class="dv">2</span>])<span class="sc">/</span><span class="fl">30.5</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.63934</span></span></code></pre></div>
+<p>So we indeed have <span class="math inline">\(n=451\)</span> unique patients with a median follow-up of 31.6 months.</p>
+<p>Next, we use the <code>pwreg()</code> function to fit the PW model:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the number of rows and number of covariates.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>nr <span class="ot">&lt;-</span> <span class="fu">nrow</span>(non_ischemic)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ncol</span>(non_ischemic)<span class="sc">-</span><span class="dv">3</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extract ID, time, status and covariates matrix Z from the data.</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># note that: ID, time and status should be column vector.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># covariatesZ should be (nr, p) matrix.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ID <span class="ot">&lt;-</span> non_ischemic[,<span class="st">&quot;ID&quot;</span>]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> non_ischemic[,<span class="st">&quot;time&quot;</span>]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>status <span class="ot">&lt;-</span> non_ischemic[,<span class="st">&quot;status&quot;</span>]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(non_ischemic[,<span class="dv">4</span><span class="sc">:</span>(<span class="dv">3</span><span class="sc">+</span>p)],nr,p)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># pass the parameters into the function</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>pwreg.obj <span class="ot">&lt;-</span> <span class="fu">pwreg</span>(<span class="at">time=</span>time,<span class="at">status=</span>status,<span class="at">Z=</span>Z,<span class="at">ID=</span>ID)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pwreg.obj)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pwreg(ID = ID, time = time, status = status, Z = Z)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Proportional win-fractions regression models for priority-adjusted composite endpoint</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     (Mao and Wang, 2020):</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Total number of pairs: 101475 </span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Wins-losses on death:  7644 (7.5%) </span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Wins-losses on non-fatal event:  78387 (77.2%) </span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Indeterminate pairs 15444 (15.2%) </span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Newton-Raphson algorithm converged in 5 iterations.</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Overall test: chisq test with 13 degrees of freedom; </span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Wald statistic 24.9 with p-value 0.02392931 </span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimates for Regression parameters:</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     Estimate         se z.value p.value  </span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Training vs Usual  0.1906687  0.1264658  1.5077 0.13164  </span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Age (year)        -0.0128306  0.0057285 -2.2398 0.02510 *</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Male vs Female    -0.1552923  0.1294198 -1.1999 0.23017  </span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Black vs White    -0.3026335  0.1461330 -2.0709 0.03836 *</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Other vs White    -0.3565390  0.3424360 -1.0412 0.29779  </span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; BMI               -0.0181310  0.0097582 -1.8580 0.06316 .</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; LVEF               0.0214905  0.0086449  2.4859 0.01292 *</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Hypertension      -0.0318291  0.1456217 -0.2186 0.82698  </span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; COPD              -0.4023069  0.2066821 -1.9465 0.05159 .</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Diabetes           0.0703990  0.1419998  0.4958 0.62006  </span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ACE Inhibitor     -0.1068201  0.1571317 -0.6798 0.49662  </span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Beta Blocker      -0.5344979  0.3289319 -1.6250 0.10417  </span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Smoker            -0.0602350  0.1682826 -0.3579 0.72039  </span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Point and interval estimates for the win ratios:</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   Win Ratio 95% lower CL 95% higher CL</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Training vs Usual 1.2100585    0.9444056     1.5504374</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Age (year)        0.9872513    0.9762288     0.9983983</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Male vs Female    0.8561648    0.6643471     1.1033663</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Black vs White    0.7388699    0.5548548     0.9839127</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Other vs White    0.7000951    0.3578286     1.3697431</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; BMI               0.9820323    0.9634287     1.0009952</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; LVEF              1.0217231    1.0045572     1.0391823</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Hypertension      0.9686721    0.7281543     1.2886357</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; COPD              0.6687755    0.4460178     1.0027865</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Diabetes          1.0729362    0.8122757     1.4172433</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ACE Inhibitor     0.8986873    0.6604773     1.2228110</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Beta Blocker      0.5859634    0.3075270     1.1164977</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Smoker            0.9415433    0.6770144     1.3094312</span></span></code></pre></div>
+<p>The output consists of three parts. The first part presents some descriptive statistics on the proportions of win-loss status among all <span class="math inline">\({n\choose 2}=101,475\)</span> pairs. According to the output, <span class="math inline">\(7.5\%\)</span> of them are determined by death; <span class="math inline">\(77.2\%\)</span> by hospitalization, and the remaining <span class="math inline">\(7.2\%\)</span> are indeterminate. It also reports an overall (Wald) test with <span class="math inline">\(p\)</span>-value 0.024, suggesting that, at the conventional 0.05 level, the 13 covariates are significantly associated with the composite outcome.</p>
+<p>The second part presents a table for the estimates and standard errors of the regression coefficient, along with their corresponding <span class="math inline">\(p\)</span>-value for testing the coefficient being zero. The third part is perhaps the most informative, tabulating the estimated win ratios (exponential of the regression coefficients) and their associated <span class="math inline">\(95\%\)</span> confidence intervals. We can see that a patient in exercise training is <span class="math inline">\(21\%\)</span> more likely to have a better priority-adjusted composite outcome than one in usual care. However, this difference is statistically not significant. In addition, younger age, white race, higher LVEF are significantly associated with more favorable outcomes than otherwise, while the beneficial effects of low BMI and absence of COPD history are border-line significant.</p>
+<p>To assess the effect of race on the composite outcome, we test the null hypothesis <span class="math display">\[H_0:\beta_4=\beta_5=0.\]</span> We conduct a 2-df Chi-square Wald test based on <span class="math inline">\((\widehat\beta_4,\widehat\beta_5)^{T}\)</span>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract estimates of (\beta_4,\beta_5)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(pwreg.obj<span class="sc">$</span>beta[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#extract estimated covariance matrix for (\beta_4,\beta_5)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> pwreg.obj<span class="sc">$</span>Var[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#compute chisq statistic in quadratic form</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>chistats <span class="ot">&lt;-</span> <span class="fu">t</span>(beta) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> beta  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#compare the Wald statistic with the reference</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of chisq(2) to obtain the p-value</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chistats, <span class="at">df=</span><span class="dv">2</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.1016988</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is 0.102. So the overall effect of race on the composite outcome is non-significant.</p>
+<p>Finally, we use the <code>score.proc()</code> function to plot the standardized score process for each covariate:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>score.obj <span class="ot">&lt;-</span> <span class="fu">score.proc</span>(pwreg.obj)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(score.obj)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; This object contains two components:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  &#39;t&#39;: an l-vector of times</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  &#39;score&#39;: a p-by-l matrix whose k&#39;th row is the standardized score process for the k&#39;th covariate</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           as a function of t</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Use &#39;plot(object,k=k)&#39; to plot the k&#39;th score process.</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>oldpar <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">par</span>(<span class="st">&quot;mfrow&quot;</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>)){</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(score.obj, <span class="at">k =</span> i)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(oldpar)</span></code></pre></div>
+<p><img src="data:image/png;base64,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EoBAINCAFQg0YAUCDViBQANWINCAFW6B3guxKi/Z6PspTXlxKT0/ny7ML6IXqK/DFThfhLNToI/v1mq2vQR1VikuLy51XEqZdGF+Eb1AfR2uwPkynJ0CfbjZmZqLJboFU15Y6vT4SX7I0oW5RewCdXU4A+fLcHYK9H5e9QVR+1cLMbflJUupvUa6sLCIXqC+DkfgfBnOxIGO/rmLtlVGLaUb6nAEzpfhTDzkUGxvK3cJx/rdyvn2iJo6HIHzZTgTHxSqT812VTloV051A//kY1pThyNwvgxnp0DXT83cVs27dJiaqanDFThfhLNboAEYKQg0YAUCDViBQANWINCAFQg0YAUCDViBQANWINCAFQg0YAUCDViBQANWINCAFQg0YAUCDViBQANWINCAFR4DfVio3wObfbyZzHcLwzkU/pz99tDb8l/UHTVwDoMnZ/+BPtx8+eZOvFU/F70XYu61PQrgHAZPzkEC/WZ9kP/dfJE7GJovf/AJnMPgyTlIoG92B/XfZzVuGv3OEc5h8OQcNNBzr40RAecweHIOGWi5ezndT2VXCGfPeHIOGejdlA5W4OwZT844sQJYgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADVlAH+uVOiNdPpUXH5fWOuDUAchAH+nT/+vmlIrgINPAPcaDrQotAA/+QB1p8p1J7WPzug5j9x52YreQw5IMQN0860Buxil4ehPh2J//56qurZ9rmwcVDPYbeCjH7cScDffV0WMzeH++uno/Lq6eXe/X39U/iVuX6SY1KjsvZmrhxAMhnOT4vhLjeHRZz3SOfZJD3MsWR/EP23urnnPU/t7M1RiDAA/TTdqf/XohVOtBbOcyIAy3HGLIPV6wQaOABH/PQ22ygzz301V/lQ/3PCMeIwAvEgd6LuQ5xOtCpMfRuo4caTyf7T9rGASDvof9XDqFfr6N0oNOzHOp5e+4FgQYewKlvwAoEGrACgQasQKABKxBowAoEGrACgQasQKABKxBowAoEGrACgQassIE+LsX7B1xvDyaPCfTpfrVZHW5wsRCYOibQx++fNyv5x8AyAPQl1UPvcTknmDznMbTALdhg+iRDjoE9ACABgQassEOOzWpYDQBosD30Un2zQNtBtAiDx7UGbKmPzV7MPi4KQQ8TNQQaOFA7y3F6WB8Wqyh/xgWBBqMlmYeW3XFhHloeK54en1OHjCEHAwg0cCA1y1Gc6tA5lwU/oIcGE6G2h44Ob9by+fy3hCLQYLS4nClEoMFocYkNAg1Gi42NHG7o4UWX13gGgQYO2DG0uri/9fXQCDQYLbWzHLWv8Q0CDRyon+Woe41vEGjgAGY5ACswywFYEc9yzGUf3fYSUgQajJZklmM7bzHLgWs5wMg53/V9i1kOMH1sD/346d0a89Bg+sRjaHH92zucKQSTB7McgBUINGAFAg1YgUADVqjYmC8x6PA1Bl6NwrYCmJH6opn9vNtrPINAAwdw+ShgBS4fBaxIXT5azHNhcI1rOcDIqY/NsfTsIQINRkvDjwaVDkMQaDBaXH40CIEGo8XlR4MQaDBaXH40qC5qdMeMCDRwgPQmWRVmYf4iMwOgC5TXcojGJShaAaCG+CcpVgRnCkXzIh1AoIEDNtA//HHVO9DppwkGHQg0cIDuJtlshoX5o0ewEWjgwPnipO3bx8ZA15z6zj8rkiPE1jMf2V/AQqCBA6mr7bZO10Pb/BXilztCLI107e+4IdDAgR6zHKkUtumBz4lt90uECDRwQN+x8v2nbj+8qf/oPkC2r2v5KgQaONBnHrrzEV+n04gINHCgzz2Ffi+MRqCBA7inELAC9xQCVuCeQsCK2nsK61/jGQQaOJAachSpOFpEoMFoqQ00bpIFUyM1y1FGblyNrzEAIye+HhrfbQdY0Byb4vQ0Ag1Gi43NtrqHRqDBhLBDjnfrzariTCECDSZEMsuxxc+6AQbYM4UP6/0cgQbTx8Zmf/2Pe3Hb7TWeQaCBA5Tfy0ELAg0c6HM9tF8QaOAArocGrOh2PTROfYORg+uhAStwPTRgBWY5ACuar+WofI1nEGjgQHItR+fX+AaBBg7U37FS9xrfINDAgYY7Vupe4xkEGjhQf8fKXsw+LgrPI9BgtNTG5vSwPixWUf4HDBFoMFpqZznk0Pr0+FwYYSPQYLTU3rGiTyCqX2BBDw0mQv0dK4c3azmQniVzeriWA4wc3LECWNF8xwpukgUTwul7OcLgY3UBd5qvhy6/7r8pbn3L0UEDJ1RuTvemS2x9/WiEQIOR4nItx/l1/soRaOCEzo367fpN66tHz6/zWI5AAyd0bjYrdf9V61uwktd5LEeggRP6awzUL33fdht3INBglNhAnx7WDgNpAMaGmeVYHX4vO+n50DIA9EXv2Q8LsTrddxlCAzBOMFQFrECgASsQaMAKBBqwAoEGrECgASvcAr0XouKLPDb6XltTXlxKn7tJF+YX0QvU1wFADU6BPr5bqzMxJagzjnF5canjUgY1XZhfRC9QXwcAdTgF+nCzM6krluj0mfLCUqfHT7IDThfmFrEL1NUBQC1OgVY3sZR/edj+1ULMbXnJUmpEkS4sLKIXqK8DgBqIAx39cxdtq9LaMtANdQBQA/GQQ7G9rRwuHOuHHOdbZ2rqAKAG4oNC1aNuV5UHdCqvdQeFSRdeUwcANXiYtrutmpPrMG1XUwcANeDECmAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGAFAg1YgUADViDQgBUINGCFx0AfFuq34mYfb/C90yAYfnvobfmvLQPgC/+BPtx8+eZOvFU/Jb4XYu61PXDxBAn0m/VB/nfzRQ4+8CUbwCtBAn2zO6j/PqsxNQYhwCdBAz332hgAYQMthx6neww5gE9CBnqHg0LgG5xYAaxAoAErEGjACgQasAKBBqxAoAErEGjACgQasAKBBqxAoAErEGjACgQasAKBBqxAoAErEGjACgQasOL/AaPMimTfO/HLAAAAAElFTkSuQmCC" /><!-- --></p>
+<p>Most curves are fairly patternless with suprema well bounded by 2. So we conclude that the proportionality assumption approximately holds.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ul>
+<li><p>Mao, L. and Wang, T. (2020). A class of proportional win-fractions regression models for composite outcomes. <em>Biometrics</em>, <a href="https://doi.org/10.1111/biom.13382" class="uri">https://doi.org/10.1111/biom.13382</a>.</p></li>
+<li><p>O’Connor, C. M., Whellan, D. J., Lee, K. L., Keteyian, S. J., Cooper, L. S., Ellis, S. J., Leifer, E. S., Kraus, W. E., Kitzman, D. W., Blumenthal, J. A. et al. (2009). Efficacy and safety of exercise training in patients with chronic heart failure: HF-ACTION randomized controlled trial. <em>Journal of the American Medical Association</em>, 301, 1439–1450.</p></li>
+<li><p>Pocock, S., Ariti, C., Collier, T., and Wang, D. (2012). The win ratio: a new approach to the analysis of composite endpoints in clinical trials based on clinical priorities. <em>European Heart Journal</em>, 33, 176–182.</p></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

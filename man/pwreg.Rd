@@ -2,26 +2,43 @@
 % Please edit documentation in R/functions.R
 \name{pwreg}
 \alias{pwreg}
-\title{Fit priority-adjusted proportional win-fractions (PW) regression model}
+\title{Fit a standard proportional win-fractions (PW) regression model}
 \usage{
-pwreg(time, status, Z, ID, rho = 0, eps = 1e-04, maxiter = 50)
+pwreg(
+  ID,
+  time,
+  status,
+  Z,
+  rho = 0,
+  strata = NULL,
+  fixedL = TRUE,
+  eps = 1e-04,
+  maxiter = 50
+)
 }
 \arguments{
-\item{time}{a vector of all the event times.}
+\item{ID}{a vector of unique subject-level identifiers.}
 
-\item{status}{a vector of the status for all the event. 0: censoring, 1:death
+\item{time}{a vector of event times.}
+
+\item{status}{a vector of event type labels. 0: censoring, 1:death
 and 2: non-fatal event.}
 
 \item{Z}{a matrix or a vector of covariates.}
 
-\item{ID}{a vector of unique subject-level identifiers.}
-
 \item{rho}{a non-negative number as the power of the survival function used
-in the weight. Default (\code{rho=0}) is recommended.}
+in the weight. Default (\code{rho=0}) is recommended. If there is a `strata` argument,
+then `rho` is ignored.}
+
+\item{strata}{a vector of stratifying variable if a stratified model is desired.}
+
+\item{fixedL}{logical variable indicating which variance estimator to be used. If `TRUE`,
+the type I variance estimator (for a small number strata) is used; otherwise
+the type II variance estimator (for a large number strata) is used.}
 
 \item{eps}{precision for the convergence of Newton-Raphson algorithm.}
 
-\item{maxiter}{maximum number of iterations allowe for the Newton-Raphson
+\item{maxiter}{maximum number of iterations allow for the Newton-Raphson
 algorithm.}
 }
 \value{
@@ -31,7 +48,7 @@ covariance matrix for \code{beta}. \code{conv:} boolean variable indicating
 whether the algorithm converged within the maximum number of iterations.
 }
 \description{
-Fit priority-adjusted proportional win-fractions (PW) regression model.
+Fit a standard proportional win-fractions (PW) regression model.
 }
 \examples{
 library(WR)
@@ -50,13 +67,26 @@ ID <- non_ischemic_reduce[,"ID"]
 time <- non_ischemic_reduce[,"time"]
 status <- non_ischemic_reduce[,"status"]
 Z <- as.matrix(non_ischemic_reduce[,4:(3+p)],nr,p)
+## unstratified analysis
 pwreg.obj <- pwreg(time=time,status=status,Z=Z,ID=ID)
 print(pwreg.obj)
+\dontrun{
+## stratified PW by sex
+sex<-Z[,3]
+## take out sex from the covariate matrix
+Z1<-Z[,-3]
+pwreg.obj1 <- pwreg(time=time,status=status,Z=Z1,ID=ID,strata=sex)
+print(pwreg.obj1)
+}
 }
 \references{
-Mao, L. and Wang, T. (2020+). "A class of proportional win-fractions
-regression models for composite outcomes". Under review.
+Mao, L. and Wang, T. (2020). A class of proportional win-fractions
+regression models for composite outcomes. Biometrics, 10.1111/biom.13382
+
+Wang, T. and Mao, L. (2021+). Stratified Proportional Win-fractions
+Regression Analysis.
 }
 \seealso{
-\code{\link{score.proc}}
+\code{\link{score.proc}}, \code{\link{print.pwreg}}
 }
+\keyword{pwreg}

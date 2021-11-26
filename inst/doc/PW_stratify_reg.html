@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Tuo Wang &amp; Lu Mao (lmao@biostat.wisc.edu)" />
+
+
+<title>Stratified proportional win-fractions (PW) regression of composite endpoints of death and nonfatal event</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Stratified proportional win-fractions (PW) regression of composite endpoints of death and nonfatal event</h1>
+<h4 class="author">Tuo Wang &amp; Lu Mao (<a href="mailto:lmao@biostat.wisc.edu" class="email">lmao@biostat.wisc.edu</a>)</h4>
+
+
+
+<p>This vignette demonstrates the use of the <code>WR</code> package in fitting the stratified proportional win-fractions (PW) regression model for prioritized composite endpoints consisting of death and a nonfatal event (Wang and Mao, 2022). This is an extension of the unstratified PW model of Mao and Wang (2020, <em>Biometrics</em>).</p>
+<div id="model-inference" class="section level2">
+<h2>MODEL &amp; INFERENCE</h2>
+<div id="outcome-data-and-modeling-target" class="section level3">
+<h3>Outcome data and modeling target</h3>
+<p>Let <span class="math inline">\(D\)</span> denote the survival time, <span class="math inline">\(T\)</span> time to the first nonfatal event like hospitalization, and <span class="math inline">\(\boldsymbol Z\)</span> a <span class="math inline">\(p\)</span>-vector of covariates. The composite outcome is <span class="math inline">\(\boldsymbol Y=(D, T)\)</span>, with <span class="math inline">\(D\)</span> prioritized over <span class="math inline">\(T\)</span>. Suppose that there are <span class="math inline">\(L\)</span> strata defined by, e.g., patient demographics or study center. In the <span class="math inline">\(l\)</span>th stratum <span class="math inline">\((l=1,\ldots, L)\)</span>, if we want to compare the <span class="math inline">\(i\)</span>th and <span class="math inline">\(j\)</span>th patients, denoted respectively using subscripts <span class="math inline">\(li\)</span> and <span class="math inline">\(lj\)</span>, we can use Pocock et al.’s (2012) sequential rule with the “win indicator” defined by <span class="math display">\[\begin{align*}
+\mathcal W(\boldsymbol Y_{li}, \boldsymbol Y_{lj})(t) 
+&amp; = I(\mbox{subject $i$ wins against subject $j$ by $t$ in stratum $l$})\\ 
+&amp; = I(D_{lj} &lt; D_{li} \wedge t) + I(D_{li} \wedge D_{lj} &gt; t, T_{lj} &lt; T_{li} \wedge t),
+\end{align*}\]</span> where <span class="math inline">\(a\wedge b=\min(a,b)\)</span>. Then, the (time-dependent) covariate-specific win ratio in the <span class="math inline">\(l\)</span>th stratum is <span class="math display">\[\mathcal R_l(t;\boldsymbol Z_{li}, \boldsymbol Z_{lj}):=
+\frac{E\{\mathcal W(\boldsymbol Y_{li}, \boldsymbol Y_{lj})(t)\mid \boldsymbol Z_{li}, \boldsymbol Z_{lj}\}}{E\{\mathcal W(\boldsymbol Y_{lj}, \boldsymbol Y_{li})(t)\mid \boldsymbol Z_{li}, \boldsymbol Z_{lj}\}}.\]</span></p>
+</div>
+<div id="model-specification" class="section level3">
+<h3>Model specification</h3>
+<p>The stratified PW model specifies that <span class="math display">\[\begin{equation}\tag{1}
+\mbox{Stratified PW:}\hspace{3mm} \mathcal R_l(t;\boldsymbol Z_{li}, \boldsymbol Z_{lj})=\exp\{\boldsymbol\beta^{\rm T}(\boldsymbol Z_{li} -\boldsymbol Z_{lj})\},\hspace{3mm} l=1,\ldots, L.
+\end{equation}\]</span> That is, we assume that the covariate-specific win ratio in each stratum is invariant to the follow-up time (proportionality of the win fractions) and depends on a common regression parameter <span class="math inline">\(\boldsymbol\beta\)</span>. Under model (1), the components of <span class="math inline">\(\boldsymbol\beta\)</span> can be interpreted as the log-win ratios associated with unit increases in the corresponding covariates <em>within each stratum</em>. Because model (1) involves only within-stratum comparisons, it does not require proportionality to hold across strata as an unstratified PW model does.</p>
+</div>
+<div id="number-of-strata-and-inference-procedure" class="section level3">
+<h3>Number of strata and inference procedure</h3>
+<p>Under (1), we can obtain consistent estimates for the parameter <span class="math inline">\(\boldsymbol\beta\)</span> based on censored data under the independent censoring assumption <span class="math display">\[(C_{li}\perp \boldsymbol Y_{li})\mid \boldsymbol Z_{li}.\]</span> for every <span class="math inline">\(l=1,\ldots, L\)</span>. There are two approaches to estimating the variance of the resulting estimator <span class="math inline">\(\boldsymbol\beta\)</span>, each appropriate in a different context. When the number of strata <span class="math inline">\(L\)</span> is small, such as in the case of sex or race categories, we can apply the variance estimator of the unstratified PW model to each stratum and sum up the stratum-specific variances. We call this the <strong>type I</strong> variance estimator. When <span class="math inline">\(L\)</span> is large, such as in the case of matched pairs (so that <span class="math inline">\(L=n/2\)</span>), each stratum need not contain enough subjects to support its own variance estimator. We instead treat the strata as basic units of observation and take a Lindeberg–Feller-type approach to quantifying the variance of the sum of the independent (but not necessarily identically distributed) units. This gives us a <strong>type II</strong> variance estimator.</p>
+</div>
+</div>
+<div id="basic-syntax" class="section level2">
+<h2>BASIC SYNTAX</h2>
+<p>The input data must be in the “long format”, with an <code>ID</code> vector containing unique patient-level identifiers. In addition, we need a <code>time</code> vector containing the event times and a <code>status</code> vector indicating the corresponding cause of the event. The vector <code>status</code> should be coded as <code>1</code>=death; <code>2</code>=non-fatal event; <code>0</code>=censoring. In the case of recurrent non-fatal events, multiple rows with <code>status</code>=2 are allowed. However, by nature of the method, only time to the first episode will be used. Finally, we need a covariate matrix <code>Z</code> with the same row as <code>ID</code>. Each column of <code>Z</code> represents a covariate. All covariates need to be time-constant.</p>
+<p>The main function to fit the stratified PW model is</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>obj<span class="ot">&lt;-</span><span class="fu">pwreg</span>(ID, time, status, Z, strata, <span class="at">fixedL=</span><span class="cn">TRUE</span>) </span></code></pre></div>
+<p>with <code>ID</code>, <code>time</code>, <code>status</code>, and <code>Z</code> as specified above. The optional argument <code>strata</code> accepts the (categorical) stratifying variable. The default option <code>fixedL=TRUE</code> requests the type I variance estimator (under small <span class="math inline">\(L\)</span>) while <code>fixedL=FALSE</code> requests the type II variance estimator (under large <span class="math inline">\(L\)</span>). The function returns an object of class <code>pwreg</code> with a <code>beta</code> vector for <span class="math inline">\(\widehat{\boldsymbol\beta}\)</span> and a <code>Var</code> matrix for <span class="math inline">\(\text{var}(\widehat{\boldsymbol\beta})\)</span>. Score processes to check the proportionality assumption can be computed and plotted by</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## compute the standardized score processes</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>score<span class="ot">&lt;-</span><span class="fu">score.proc</span>(obj)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## plot the computed process for the kth covariate</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(score, k)</span></code></pre></div>
+<p>As a rule of thumb, we consider the proportionality to be tenable if the score processes are bounded in <span class="math inline">\([-2, 2]\)</span>.</p>
+</div>
+<div id="an-example-with-the-german-breast-cancer-study" class="section level2">
+<h2>AN EXAMPLE WITH THE GERMAN BREAST CANCER STUDY</h2>
+<p>We demonstrate the stratified PW regression methods using a subset of the data from the German Breast Cancer study consisting of 686 patients with primary node positive breast cancer (Sauerbrei et al., 1999).</p>
+<div id="data-preparation" class="section level3">
+<h3>Data preparation</h3>
+<p>The study was conducted between July 1984 to December 1989 to assess the effectiveness of hormonal treatment with tamoxifen in addition to standard chemotherapy in reducing the cancer relapse (nonfatal event) and mortality of patients.</p>
+<p>We first load the <code>WR</code> package and the analysis dataset <code>gbc</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(WR)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gbc)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id     time status hormone age menopause size grade nodes prog_recp</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1 43.83607      2       1  38         1   18     3     5       141</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1 74.81967      0       1  38         1   18     3     5       141</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  2 46.55738      2       1  52         1   20     1     1        78</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  2 65.77049      0       1  52         1   20     1     1        78</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  3 41.93443      2       1  47         1   30     2     1       422</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  3 47.73770      1       1  47         1   30     2     1       422</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   estrg_recp</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        105</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        105</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         14</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         14</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         89</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         89</span></span></code></pre></div>
+<p>Covariates include:</p>
+<ul>
+<li><code>hormone</code>: Treatment indicator: 1=Hormone therapy; 2=standard therapy;</li>
+<li><code>age</code> Age at diagnosis (years)</li>
+<li><code>menopause</code> Menopausal Status; 1=No; 2=Yes</li>
+<li><code>grade</code> Tumor grade, 1-3</li>
+<li><code>nodes</code> Number of nodes involved</li>
+<li><code>prog_recp</code> Number of progesterone receptors</li>
+<li><code>estrg_recp</code> Number of estrogen receptors</li>
+</ul>
+<p>The <code>grade</code> column in <code>gbc</code> is a factor variable. We create dummy variables for <code>grade</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>grade_matrix <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span><span class="fu">factor</span>(grade),<span class="at">data=</span>gbc)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>grade_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(grade_matrix[,<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(grade_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;grade2 vs grade1&quot;</span>, <span class="st">&quot;grade3 vs grade1&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>gbc <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(gbc[,<span class="sc">-</span><span class="dv">8</span>], grade_df)</span></code></pre></div>
+</div>
+<div id="stratification-by-menopause-status" class="section level3">
+<h3>Stratification by menopause status</h3>
+<p>Next, we fit a PW model stratified by menopause status. Because the stratifying variable has only two levels, we use the type I variance estimator.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## extract the covariate matrix Z from the data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## leaving out menopause as the stratifying variable</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Z1 <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(gbc[,<span class="fu">c</span>(<span class="st">&quot;hormone&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;size&quot;</span>, <span class="st">&quot;nodes&quot;</span>, <span class="st">&quot;prog_recp&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;estrg_recp&quot;</span>, <span class="st">&quot;grade2 vs grade1&quot;</span>, <span class="st">&quot;grade3 vs grade1&quot;</span>)])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## fit a PW model stratified by the binary menopause status</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## use type I variance estimator</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>obj1<span class="ot">&lt;-</span><span class="fu">pwreg</span>(<span class="at">ID=</span>gbc<span class="sc">$</span>id,<span class="at">time=</span>gbc<span class="sc">$</span>time,<span class="at">status=</span>gbc<span class="sc">$</span>status, <span class="at">Z=</span>Z1,<span class="at">strata=</span>gbc<span class="sc">$</span>menopause,<span class="at">fixedL=</span><span class="cn">TRUE</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## print out the results</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(obj1)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pwreg(ID = gbc$id, time = gbc$time, status = gbc$status, Z = Z1, </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     strata = gbc$menopause, fixedL = TRUE)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Stratified proportional win-fractions regression analysis</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     (Wang and Mao, 2021+):</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Total number of strata: 2 </span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Newton-Raphson algorithm converged in 6 iterations.</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Overall test: chisq test with 8 degrees of freedom; </span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Wald statistic 96 with p-value 0 </span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimates for Regression parameters:</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     Estimate          se z.value   p.value    </span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; hormone           4.2232e-01  1.4207e-01  2.9726  0.002953 ** </span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age               1.2849e-02  9.9410e-03  1.2925  0.196175    </span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size             -1.0653e-02  4.6504e-03 -2.2909  0.021971 *  </span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nodes            -8.0716e-02  1.5057e-02 -5.3607 8.288e-08 ***</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prog_recp         2.4843e-03  6.1486e-04  4.0404 5.337e-05 ***</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estrg_recp       -6.8751e-05  5.1367e-04 -0.1338  0.893527    </span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; grade2 vs grade1 -6.5226e-01  2.5633e-01 -2.5447  0.010938 *  </span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; grade3 vs grade1 -8.5797e-01  2.8480e-01 -3.0126  0.002590 ** </span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Point and interval estimates for the win ratios:</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  Win Ratio 95% lower CL 95% higher CL</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; hormone          1.5254939    1.1547326     2.0152991</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age              1.0129319    0.9933870     1.0328614</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size             0.9894031    0.9804261     0.9984623</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nodes            0.9224554    0.8956306     0.9500837</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prog_recp        1.0024873    1.0012800     1.0036962</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estrg_recp       0.9999313    0.9989250     1.0009385</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; grade2 vs grade1 0.5208648    0.3151662     0.8608161</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; grade3 vs grade1 0.4240199    0.2426418     0.7409807</span></span></code></pre></div>
+<p>We can see that, adjusting for other variables and stratifying by menopause status, hormonal treatment makes the patient 1.5 times as likely to have a more favorable outcome (prioritizing survival over cancer relapse), with 95% confidence interval (1.2, 2.0) and <span class="math inline">\(p\)</span>-value 0.003. Next, plot the standardized score process for each covariate:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>score1 <span class="ot">&lt;-</span> <span class="fu">score.proc</span>(obj1)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>oldpar <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">par</span>(<span class="st">&quot;mfrow&quot;</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)){</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(score1, <span class="at">k =</span> i)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span>  <span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(oldpar)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --> All curves are bounded between -2 and 2, suggesting no severe violation of the proportionality assumption.</p>
+</div>
+<div id="stratification-by-age" class="section level3">
+<h3>Stratification by age</h3>
+<p>As illustration, we fit another PW model stratified by finely-cut age groups.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## cut age into ~30 groups by quantiles</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cutpoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">unique</span>(<span class="fu">quantile</span>(gbc<span class="sc">$</span>age[gbc<span class="sc">$</span>status<span class="sc">&lt;</span><span class="dv">2</span>],</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">seq</span>(<span class="fl">0.1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.02</span>))),<span class="cn">Inf</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>cutpoints</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  0.0 40.0 41.2 43.0 44.0 45.0 46.0 47.0 48.0 49.0 50.0 51.0 52.0 53.0 54.0</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [16] 55.0 56.0 57.0 58.0 59.0 60.0 61.0 62.0 63.0 64.0 65.0 66.0 67.0 69.0 71.0</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [31] 80.0  Inf</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>age_group <span class="ot">&lt;-</span> <span class="fu">cut</span>(gbc<span class="sc">$</span>age, <span class="at">breaks =</span> cutpoints, <span class="at">right =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Now that <span class="math inline">\(L&gt;30\)</span>, it would be better to use type II variance estimator for inference.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## extract the covariate matrix Z from the data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## leaving out age as the stratifying variable</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Z2 <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(gbc[,<span class="fu">c</span>(<span class="st">&quot;hormone&quot;</span>, <span class="st">&quot;menopause&quot;</span>, <span class="st">&quot;size&quot;</span>, <span class="st">&quot;nodes&quot;</span>, <span class="st">&quot;prog_recp&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;estrg_recp&quot;</span>, <span class="st">&quot;grade2 vs grade1&quot;</span>, <span class="st">&quot;grade3 vs grade1&quot;</span>)])</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## fit a PW model stratified by the binary menopause status</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## use type II variance estimator because L is large</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>obj2<span class="ot">&lt;-</span><span class="fu">pwreg</span>(<span class="at">ID=</span>gbc<span class="sc">$</span>id,<span class="at">time=</span>gbc<span class="sc">$</span>time,<span class="at">status=</span>gbc<span class="sc">$</span>status, <span class="at">Z=</span>Z2,<span class="at">strata=</span>age_group,<span class="at">fixedL=</span><span class="cn">TRUE</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## print out the results</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(obj2)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pwreg(ID = gbc$id, time = gbc$time, status = gbc$status, Z = Z2, </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     strata = age_group, fixedL = TRUE)</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Stratified proportional win-fractions regression analysis</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     (Wang and Mao, 2021+):</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Total number of strata: 31 </span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Newton-Raphson algorithm converged in 6 iterations.</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Overall test: chisq test with 8 degrees of freedom; </span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Wald statistic 75.4 with p-value 4.168887e-13 </span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimates for Regression parameters:</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     Estimate          se z.value   p.value    </span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; hormone           4.8641e-01  1.5611e-01  3.1158 0.0018346 ** </span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; menopause        -2.1619e-02  2.7309e-01 -0.0792 0.9369026    </span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size             -1.1571e-02  5.0177e-03 -2.3060 0.0211088 *  </span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nodes            -7.5957e-02  1.7082e-02 -4.4466 8.724e-06 ***</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prog_recp         2.3739e-03  6.4165e-04  3.6996 0.0002159 ***</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estrg_recp       -6.9157e-05  6.0552e-04 -0.1142 0.9090710    </span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; grade2 vs grade1 -6.3031e-01  2.9273e-01 -2.1532 0.0313009 *  </span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; grade3 vs grade1 -8.0426e-01  3.2323e-01 -2.4882 0.0128400 *  </span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Point and interval estimates for the win ratios:</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  Win Ratio 95% lower CL 95% higher CL</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; hormone          1.6264589    1.1977373     2.2086384</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; menopause        0.9786135    0.5730061     1.6713335</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; size             0.9884957    0.9788219     0.9982650</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nodes            0.9268558    0.8963381     0.9584125</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prog_recp        1.0023767    1.0011169     1.0036381</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estrg_recp       0.9999308    0.9987448     1.0011183</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; grade2 vs grade1 0.5324247    0.2999756     0.9449969</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; grade3 vs grade1 0.4474189    0.2374532     0.8430446</span></span></code></pre></div>
+<p>We can see that the results are similar to those of the menopause-stratified analysis. One can also check the proportionality assumption in a similar way using the <code>score.proc()</code> function.</p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ul>
+<li><p>Mao, L. and Wang, T. (2020). A class of proportional win-fractions regression models for composite outcomes. <em>Biometrics</em>, <a href="https://doi.org/10.1111/biom.13382" class="uri">https://doi.org/10.1111/biom.13382</a>.</p></li>
+<li><p>Pocock, S., Ariti, C., Collier, T., and Wang, D. (2012). The win ratio: a new approach to the analysis of composite endpoints in clinical trials based on clinical priorities. <em>European Heart Journal</em>, 33, 176–182.</p></li>
+<li><p>Sauerbrei, W., Royston, P., Bojar, H., Schmoor, C., &amp; Schumacher, M. (1999). Modelling the effects of standard prognostic factors in node-positive breast cancer. German Breast Cancer Study Group (GBSG). <em>British Journal of Cancer</em>, 79, 1752–1760.</p></li>
+<li><p>Wang, T. and Mao, L. (2022). Stratified Proportional Win-fractions Regression Analysis.</p></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -12,10 +12,10 @@
 \item{...}{further arguments passed to or from other methods}
 }
 \value{
-print the results of \code{pwreg} object
+Print the results of \code{pwreg} object
 }
 \description{
-Print the results of the proportional win-fractions regression model
+Print the results of the proportional win-fractions regression model.
 }
 \examples{
 # see the example for pwreg
@@ -23,3 +23,4 @@ Print the results of the proportional win-fractions regression model
 \seealso{
 \code{\link{pwreg}}
 }
+\keyword{pwreg}

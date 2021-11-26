@@ -4,9 +4,19 @@
 \alias{plot.pwreg.score}
 \title{Plot the standardized score processes}
 \usage{
-\method{plot}{pwreg.score}(x, k, xlab = "Time",
-  ylab = "Standardized score", lty = 1, frame.plot = TRUE,
-  add = FALSE, ylim = c(-3, 3), xlim = NULL, lwd = 1, ...)
+\method{plot}{pwreg.score}(
+  x,
+  k,
+  xlab = "Time",
+  ylab = "Standardized score",
+  lty = 1,
+  frame.plot = TRUE,
+  add = FALSE,
+  ylim = c(-3, 3),
+  xlim = NULL,
+  lwd = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class \code{pwreg.score}.}
@@ -32,7 +42,7 @@
 \item{...}{further arguments passed to or from other methods}
 }
 \value{
-a plot of the standardized score process for object \code{pwreg.score}.
+A plot of the standardized score process for object \code{pwreg.score}.
 }
 \description{
 Plot the standardized score processes.
@@ -43,3 +53,4 @@ Plot the standardized score processes.
 \seealso{
 \code{\link{score.proc}}
 }
+\keyword{pwreg}
